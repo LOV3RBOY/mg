@@ -2,10 +2,10 @@
 let clickStartTime = null;
 let clickStartPosition = { x: 0, y: 0 };
 const cameraEaseAmount = 0.04;  // Easing factor (0-1, higher = smoother)
-const scrollSensitivity = -0.06; // How much mouse scroll affects camera movement
-const touchSensitivity = 2;    // New sensitivity constant for touch movement
+const scrollSensitivity = isMobile ? -0.1 : -0.06; // More sensitive scroll on mobile
+const touchSensitivity = 0.5;    // Reduced sensitivity for better mobile control
 const dragSensitivity = 0.00002;
-const maxCameraZ = 150;         // If you try to scroll away from this point...
+const maxCameraZ = isMobile ? 200 : 150; // Allow more zoom out on mobile
 // you attempt to set cameraZ > maxCameraZ) then we need
 // to scroll the website and not three.js scene)
 let isDragging = false;
@@ -37,7 +37,7 @@ function initThreeJS() {
 
     // Scene setup
     threeScene = new THREE.Scene();
-    threeCamera = new THREE.PerspectiveCamera(7, window.innerWidth / window.innerHeight, 1, 2000);
+    threeCamera = new THREE.PerspectiveCamera(isMobile ? 10 : 7, window.innerWidth / window.innerHeight, 1, 2000);
     let targetCameraPosition = new THREE.Vector3(0, 0, maxCameraZ);
     let currentCameraPosition = new THREE.Vector3(0, 0, 0);
     let dragCameraStartPos = null;
@@ -227,8 +227,9 @@ function initThreeJS() {
 
             // Create planes for each image
             imageFiles.forEach((file, i) => {
-                // Create plane with larger default size for better quality
-                const geometry = new THREE.PlaneGeometry(10, 10);
+                // Create plane with appropriate size for device
+                const planeSize = isMobile ? 8 : 10;
+                const geometry = new THREE.PlaneGeometry(planeSize, planeSize);
                 const material = new THREE.MeshBasicMaterial({
                     color: 0xffffff,
                     side: THREE.DoubleSide,
@@ -515,9 +516,9 @@ window.addEventListener('resize', () => {
 });
 
 // Convert scrollY -> a fraction in [0..1]
-let imageSpacing = 100;
-const minOffset = isMobile ? 2 : 10;  // Minimum random offset in X and Y directions
-const maxOffset = isMobile ? 6 : 20; // Maximum random offset in X and Y directions
+let imageSpacing = isMobile ? 150 : 100;  // More spacing on mobile to prevent overlap
+const minOffset = isMobile ? 5 : 10;  // Minimum random offset in X and Y directions
+const maxOffset = isMobile ? 15 : 20; // Maximum random offset in X and Y directions
 
 waitForThreeJS().then(() => {
     initThreeJS();
