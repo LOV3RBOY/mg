@@ -28,13 +28,14 @@ mgbday/
 │       └── optimized/          # Optimized images for the gallery
 ├── images/                     # Original images
 ├── Untamed - A journey through love and the open road_files/  # CSS, JS, and media files
-└── uUntamed - A journey through love and the open road.html   # Main HTML file
+├── index.html                  # Main HTML file
+└── vercel.json                 # Vercel deployment configuration
 ```
 
 ## Setup
 
 1. Clone the repository
-2. Open `uUntamed - A journey through love and the open road.html` in a web browser
+2. Open `index.html` in a web browser
 3. Enjoy the interactive birthday experience!
 
 ## Live Demo
@@ -44,6 +45,10 @@ This is a personal birthday tribute website featuring:
 - Interactive photo exploration
 - Custom animations and effects
 - Personal messages and inside jokes
+
+## Deployment
+
+The site is configured for easy deployment on Vercel with the included `vercel.json` configuration file.
 
 ---
 
