@@ -25,6 +25,12 @@ const maxOpacityDistance = 200; // Distance where opacity is 1
 
 let allImagesLoaded = false;
 
+// Three.js variables
+let threeScene = null;
+let threeCamera = null;
+let threeRenderer = null;
+let threeInitialized = false;
+
 // Three.js initialization
 function initThreeJS() {
     const canvas = document.getElementById('threejs-canvas');
@@ -512,11 +518,6 @@ window.addEventListener('resize', () => {
 let imageSpacing = 100;
 const minOffset = isMobile ? 2 : 10;  // Minimum random offset in X and Y directions
 const maxOffset = isMobile ? 6 : 20; // Maximum random offset in X and Y directions
-
-let threeScene = null;
-let threeCamera = null;
-let threeRenderer = null;
-let threeInitialized = false;
 
 waitForThreeJS().then(() => {
     initThreeJS();
