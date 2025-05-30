@@ -196,12 +196,13 @@ const musicIcon = document.getElementById('music-icon');
 // Set initial volume
 music.volume = 0.5;
 
-// Try to play music after user interaction
+// Try to play music immediately and after user interaction
 let musicStarted = false;
 const tryPlayMusic = () => {
     if (!musicStarted && music.paused) {
         music.play().then(() => {
             musicStarted = true;
+            console.log('Music started playing');
         }).catch(err => {
             // Silently handle autoplay prevention
             console.log('Music autoplay prevented, waiting for user interaction');
@@ -209,7 +210,27 @@ const tryPlayMusic = () => {
     }
 };
 
-// Try to play on any user interaction
+// Try to play immediately when page loads
+window.addEventListener('load', () => {
+    tryPlayMusic();
+});
+
+// Also try on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    tryPlayMusic();
+});
+
+// Keep trying every second for the first 5 seconds
+let attempts = 0;
+const autoplayInterval = setInterval(() => {
+    attempts++;
+    tryPlayMusic();
+    if (musicStarted || attempts > 5) {
+        clearInterval(autoplayInterval);
+    }
+}, 1000);
+
+// Still keep the user interaction fallbacks as backup
 document.addEventListener('click', tryPlayMusic, { once: true });
 document.addEventListener('scroll', tryPlayMusic, { once: true });
 document.addEventListener('touchstart', tryPlayMusic, { once: true });
