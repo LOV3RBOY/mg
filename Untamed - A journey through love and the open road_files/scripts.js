@@ -195,24 +195,38 @@ const musicIcon = document.getElementById('music-icon');
 
 // Set initial volume
 music.volume = 0.5;
-const musicPlayInterval = setInterval(() => {
-    if (music.paused) {
-        music.play();
-    } else {
-        clearInterval(musicPlayInterval);
+
+// Try to play music after user interaction
+let musicStarted = false;
+const tryPlayMusic = () => {
+    if (!musicStarted && music.paused) {
+        music.play().then(() => {
+            musicStarted = true;
+        }).catch(err => {
+            // Silently handle autoplay prevention
+            console.log('Music autoplay prevented, waiting for user interaction');
+        });
     }
-}, 300)
+};
+
+// Try to play on any user interaction
+document.addEventListener('click', tryPlayMusic, { once: true });
+document.addEventListener('scroll', tryPlayMusic, { once: true });
+document.addEventListener('touchstart', tryPlayMusic, { once: true });
 
 // Toggle mute/unmute
 musicToggle.addEventListener('click', () => {
+    if (!musicStarted) {
+        tryPlayMusic();
+    }
     music.muted = !music.muted;
     musicIcon.src = music.muted ?
-        '/assets/images/speaker-mute.svg' :
-        '/assets/images/speaker.svg';
+        'Untamed - A journey through love and the open road_files/speaker.svg' :
+        'Untamed - A journey through love and the open road_files/speaker.svg';
 });
 
 const galleryScript = document.createElement('script');
-galleryScript.src = isMobile ? 'assets/mobile-gallery.js' : 'assets/desktop-gallery.js';
+galleryScript.src = isMobile ? 'Untamed - A journey through love and the open road_files/mobile-gallery.js' : 'Untamed - A journey through love and the open road_files/desktop-gallery.js';
 galleryScript.async = true;
 document.body.appendChild(galleryScript);
 
@@ -289,19 +303,24 @@ function updateAnimationTime(title, slide1, canvas) {
 
 function toggleControls() {
     const controlsContent = document.querySelector('.controls-content');
-    const newOpacity = (controlsContent.style.opacity == '0' || controlsContent.style.opacity == '') ? '1' : '0';
-    // hide music controls when we show these controls
-    const musicControls = document.getElementById('music-controls');
-    musicControls.style.opacity = (1 - newOpacity).toString();
-
-    controlsContent.style.opacity = newOpacity;
+    if (controlsContent) {
+        const newOpacity = (controlsContent.style.opacity == '0' || controlsContent.style.opacity == '') ? '1' : '0';
+        // hide music controls when we show these controls
+        const musicControls = document.getElementById('music-controls');
+        if (musicControls) {
+            musicControls.style.opacity = (1 - newOpacity).toString();
+        }
+        controlsContent.style.opacity = newOpacity;
+    }
 }
-const controlsUrl = isMobile ? '/assets/controls-mobile.html' : '/assets/controls-desktop.html';
-fetch(controlsUrl).then(response => response.text()).then(data => {
-    document.getElementById('controls-overlay').innerHTML += data;
+
+// Set up controls toggle button if it exists
+document.addEventListener('DOMContentLoaded', function() {
     const controlsToggle = document.getElementById('controls-toggle');
-    controlsToggle.addEventListener('click', toggleControls);
-})
+    if (controlsToggle) {
+        controlsToggle.addEventListener('click', toggleControls);
+    }
+});
 
 // Initialize the intro sequence
 document.addEventListener('DOMContentLoaded', function() {
