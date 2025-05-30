@@ -30,18 +30,21 @@ body::-webkit-scrollbar {
     background: transparent;
 }
 
-/* Custom font definition */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&display=swap');
+
+/* Custom font definition - fallback to system fonts */
 @font-face {
     font-family: 'PPNeueCorp';
-    src: url('/assets/fonts/PPNeueCorp-NarrowUltrabold.otf') format('opentype');
-    font-weight: normal;
+    src: local('Arial Black'), local('Helvetica Neue'), local('Inter');
+    font-weight: 900;
     font-style: normal;
 }
 
-/* Custom font definition */
+/* Custom font definition - fallback to system fonts */
 @font-face {
     font-family: 'General Sans';
-    src: url('/assets/fonts/GeneralSans-Light.otf') format('opentype');
+    src: local('Inter'), local('Helvetica Neue'), local('Arial');
     font-weight: 200;
     font-style: normal;
 }

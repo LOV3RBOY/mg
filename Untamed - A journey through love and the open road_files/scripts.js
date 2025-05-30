@@ -2,26 +2,34 @@
 let scrollFraction = 0;
 let atBottom = false;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-let scrollText = document.getElementById('scroll-text-container');
+let scrollText = null;
 const navbarTitle = document.getElementById("navbar-title");
 const modalTitle = document.getElementById("modal-title");
 let mouseX = 0;
 let mouseY = 0;
 let blockScrollToBottom = false;
-let controlsOverlay = document.getElementById('controls-overlay');
+let controlsOverlay = null;
 
-if (!isMobile) {
-    scrollText.style.position = 'fixed';
-    scrollText.style.width = 'initial';
-    document.body.appendChild(scrollText)
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+// Initialize elements when DOM is ready
+function initializeElements() {
+    scrollText = document.getElementById('scroll-text-container');
+    controlsOverlay = document.getElementById('controls-overlay');
+    
+    if (!isMobile && scrollText) {
+        scrollText.style.position = 'fixed';
+        scrollText.style.width = 'initial';
+        document.body.appendChild(scrollText)
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
 
-        // Update text position with smooth transitions
-        scrollText.style.left = `${mouseX + 30}px`;
-        scrollText.style.top = `${mouseY + 30}px`;
-    });
+            // Update text position with smooth transitions
+            if (scrollText) {
+                scrollText.style.left = `${mouseX + 30}px`;
+                scrollText.style.top = `${mouseY + 30}px`;
+            }
+        });
+    }
 }
 
 // Paragraph animation observer
@@ -239,8 +247,12 @@ function updateAnimationTime(title, slide1, canvas) {
             fullStoryButton.style.zIndex = '1';
             fullStoryButton.style.opacity = '1';
         }
-        scrollText.style.opacity = '0';
-        controlsOverlay.style.opacity = '1'; // Show controls toggle
+        if (scrollText) {
+            scrollText.style.opacity = '0';
+        }
+        if (controlsOverlay) {
+            controlsOverlay.style.opacity = '1'; // Show controls toggle
+        }
         atBottom = true;
     } else {
         title.style.display = 'block';
@@ -254,8 +266,12 @@ function updateAnimationTime(title, slide1, canvas) {
         }
         navbarTitle.style.opacity = '0';
         navbarTitle.style.zIndex = '-1';
-        scrollText.style.opacity = '1';
-        controlsOverlay.style.opacity = '0'; // Hide controls toggle
+        if (scrollText) {
+            scrollText.style.opacity = '1';
+        }
+        if (controlsOverlay) {
+            controlsOverlay.style.opacity = '0'; // Hide controls toggle
+        }
     }
 
     // Clamp between 0 and 1 for animation purposes
@@ -289,6 +305,9 @@ fetch(controlsUrl).then(response => response.text()).then(data => {
 
 // Initialize the intro sequence
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize DOM elements first
+    initializeElements();
+    
     const title = document.querySelector('.untamed-title');
     const slide1 = document.querySelector('.slide-1');
     const canvas = document.getElementById('threejs-canvas');
