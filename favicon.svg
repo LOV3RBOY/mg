@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="#FF6B6B" stroke="#FF4757" stroke-width="2"/>
+  
+  <!-- Birthday cake base -->
+  <rect x="8" y="18" width="16" height="8" fill="#8B4513" rx="1"/>
+  
+  <!-- Cake layers -->
+  <rect x="9" y="16" width="14" height="3" fill="#FFD93D" rx="1"/>
+  <rect x="10" y="14" width="12" height="3" fill="#FF6B6B" rx="1"/>
+  
+  <!-- Candles -->
+  <rect x="12" y="10" width="1" height="4" fill="#FFF"/>
+  <rect x="15" y="10" width="1" height="4" fill="#FFF"/>
+  <rect x="18" y="10" width="1" height="4" fill="#FFF"/>
+  
+  <!-- Flames -->
+  <ellipse cx="12.5" cy="9.5" rx="0.8" ry="1.2" fill="#FF4757"/>
+  <ellipse cx="15.5" cy="9.5" rx="0.8" ry="1.2" fill="#FF4757"/>
+  <ellipse cx="18.5" cy="9.5" rx="0.8" ry="1.2" fill="#FF4757"/>
+  
+  <!-- Small decorative dots -->
+  <circle cx="11" cy="15.5" r="0.5" fill="#FFF"/>
+  <circle cx="16" cy="15.5" r="0.5" fill="#FFF"/>
+  <circle cx="21" cy="15.5" r="0.5" fill="#FFF"/>
+</svg> 
