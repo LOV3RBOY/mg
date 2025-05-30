@@ -286,3 +286,32 @@ fetch(controlsUrl).then(response => response.text()).then(data => {
     const controlsToggle = document.getElementById('controls-toggle');
     controlsToggle.addEventListener('click', toggleControls);
 })
+
+// Initialize the intro sequence
+document.addEventListener('DOMContentLoaded', function() {
+    const title = document.querySelector('.untamed-title');
+    const slide1 = document.querySelector('.slide-1');
+    const canvas = document.getElementById('threejs-canvas');
+    
+    // Ensure intro elements are visible and animations start properly
+    if (title) {
+        title.style.display = 'block';
+        title.style.opacity = '1';
+        title.style.animation = 'title-appear 3s ease-out forwards, scroll-title 1s linear paused';
+    }
+    
+    if (slide1) {
+        slide1.style.display = 'block';
+        slide1.style.opacity = '0';
+    }
+    
+    // Set up scroll listener for animation control
+    const handleScroll = () => {
+        updateAnimationTime(title, slide1, canvas);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Initial call to set proper states
+    updateAnimationTime(title, slide1, canvas);
+});

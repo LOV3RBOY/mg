@@ -39,16 +39,16 @@
 
 <body>
     <nav class="navbar heading-padding">
-        <button class="title custom-font" id="navbar-title" type="button" style="opacity: 1; z-index: 1;">MICHAEL'S BIRTHDAY</button>
+        <button class="title custom-font" id="navbar-title" type="button" style="opacity: 0; z-index: -1;">MICHAEL'S BIRTHDAY</button>
         <div class="navbar-links">
-            <button class="button" type="button" id="full-story-btn" style="opacity: 1; z-index: 1;">the full story</button>
+            <button class="button" type="button" id="full-story-btn" style="opacity: 0; z-index: -1;">the full story</button>
         </div>
     </nav>
-    <h1 class="untamed-title custom-font" style="animation: 1s linear -0.999s paused scroll-title; display: none;">
+    <h1 class="untamed-title custom-font" style="animation: 1s linear 0s paused scroll-title;">
         HAPPY BIRTHDAY MICHAEL
         
     </h1>
-    <div class="slide-1 slightly-less-wide-kerning" style="display: none; animation-delay: -0.999s;">
+    <div class="slide-1 slightly-less-wide-kerning" style="animation-delay: 0s;">
         <p>
             Ten years ago, you took a chance on a scrappy kid with big dreams and questionable reputation. 
             Little did you know you were signing up for a decade of inside jokes, questionable decisions, 
@@ -111,9 +111,9 @@
             <img class="cta-image cta-image-1" src="assets/images/optimized/IMG_0465.JPG" alt="Birthday Memory 1">
         </div>
     </div>
-    <canvas id="threejs-canvas" style="z-index: 0; animation-delay: -0.999s; width: 1440px; height: 1471px; opacity: 1; filter: blur(0px);" data-engine="three.js r160" width="1440" height="1471"></canvas>
+    <canvas id="threejs-canvas" style="z-index: -1; animation-delay: 0s; width: 1440px; height: 1471px; opacity: 1; filter: blur(20px);" data-engine="three.js r160" width="1440" height="1471"></canvas>
     
-    <div id="controls-overlay" class="heading-padding" style="opacity: 1;">
+    <div id="controls-overlay" class="heading-padding" style="opacity: 0;">
         <button class="button" id="controls-toggle" type="button">controls</button>
     <div class="controls-content">
     <div class="control-item">
