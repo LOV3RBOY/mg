@@ -29,6 +29,8 @@ mgbday/
 ├── images/                     # Original images
 ├── Untamed - A journey through love and the open road_files/  # CSS, JS, and media files
 ├── index.html                  # Main HTML file
+├── favicon.ico                 # Traditional favicon
+├── favicon.svg                 # Modern SVG favicon
 └── vercel.json                 # Vercel deployment configuration
 ```
 
@@ -48,7 +50,7 @@ This is a personal birthday tribute website featuring:
 
 ## Deployment
 
-The site is configured for easy deployment on Vercel with the included `vercel.json` configuration file.
+The site is configured for easy deployment on Vercel with the included `vercel.json` configuration file. The main entry point is `index.html`.
 
 ---
 
